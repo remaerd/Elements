@@ -30,7 +30,7 @@
 
 ```
 
-Elements 是一个没有学习曲线的 XML 模型框架。 Elements 简化了大部分 NSXMLParser 的复杂接口并提供了一系列模型（Models）创建，验证等接口，满足你需要进行 XML 模型创建的任务。
+Elements 是一个没有学习曲线的 XML 建模框架。 Elements 简化了大部分 NSXMLParser 的复杂接口并提供了一系列建模接口，并提供了一套简单的 XML 数据验证规则（Rule）。让你不需另外学习使用 DTD， XML Schema 等麻烦且不实用的 XML 验证方式。
 
 ## 核心思路
 
