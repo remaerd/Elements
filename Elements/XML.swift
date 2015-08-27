@@ -20,7 +20,7 @@ public final class XML : NSObject, NSXMLParserDelegate {
   
   
   public var rootElement  : ElementType?
-  public var filePath     : String?
+  public var xmlData      : NSData?
   
   
   private var _parser           : NSXMLParser?
@@ -36,18 +36,24 @@ public final class XML : NSObject, NSXMLParserDelegate {
   public init(filePath:String) throws {
     super.init()
     if NSFileManager.defaultManager().fileExistsAtPath(filePath) != true { throw Error.InvalidXMLDocumentFilePath }
-    self.filePath = filePath
+    guard let data = NSData(contentsOfFile: filePath) else { throw Error.InvalidXMLDocumentData }
+    self.xmlData = data
   }
   
   
-  public init(fileURL:NSURL) throws {
-    super.init()
+  public convenience init(fileURL:NSURL) throws {
     guard let filePath = fileURL.path else { throw Error.InvalidXMLDocumentFileURL }
-    self.filePath = filePath
+    try self.init(filePath:filePath)
   }
   
   
-  public func detectElementTypeWithClass(elementType:AnyClass?, parentElementType:AnyClass?) throws {
+  public init(xml:String) throws {
+    self.xmlData = xml.dataUsingEncoding(NSUTF8StringEncoding)
+    super.init()
+  }
+  
+  
+  public func detectElementTypeWithClass(elementType:AnyClass?, parentElementType:AnyClass? = nil) throws {
     guard let element = elementType as? ElementType.Type else { throw Error.InvalidElementClass }
     let parentElement = parentElementType as? ElementType.Type
     self._classes[element.tag] = (element,parentElement)
@@ -55,10 +61,11 @@ public final class XML : NSObject, NSXMLParserDelegate {
   
   
   public func decode(completionHandler: ((error:ErrorType?) -> Void)?) {
-    guard let filePath = self.filePath else { completionHandler?(error:Error.InvalidXMLDocumentFilePath); return }
-    guard let data = NSData(contentsOfFile: filePath) else { completionHandler?(error:Error.InvalidXMLDocumentData); return}
-    self._parser = NSXMLParser(data: data)
-    self._parser!.parse()
+    guard let data = self.xmlData else { completionHandler?(error: Error.InvalidXMLDocumentData); return }
+    self._parser = NSXMLParser(data:data )
+    let result = self._parser!.parse()
+    if result == true { completionHandler?(error: nil) }
+    else { completionHandler?(error: _parserError) }
   }
   
   

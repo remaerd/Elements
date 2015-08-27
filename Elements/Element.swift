@@ -14,13 +14,10 @@ public protocol ElementType {
   static var tag    : String { get }
   static var rules  : [Rule]? { get }
   
-//  var parent      : ElementType { get }
+  var parent      : ElementType? { get set }
 //  var children    : [String:ElementType]?  { get }
 //  var property    : PropertyType?  { get }
 //  var attributes  : [String:PropertyType]?  { get }
-  
-  init(property:String?, attributes:[String:String])
-  func shouldAppendElement(element:ElementType)
 }
 
 
@@ -34,13 +31,8 @@ public extension ElementType {
 //  }
   
   
-  public static var rules : [Rule]? {
+  static var rules : [Rule]? {
     return nil
-  }
-  
-  
-  func appendElement(element:ElementType) throws {
-    
   }
   
   

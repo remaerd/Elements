@@ -4,32 +4,16 @@ import Cocoa
 import Elements
 
 
-var xml = "<xml version=\"1.0\"><tags><tag/><tag>Hello World<tag><tags></xml>"
-
-public func detectElementTypeWithClass(classType:AnyClass?) throws {
-  guard let element = classType as? ElementType.Type else { return }
-  element.tag
-}
-
-
 class Root : ElementType {
   
-  static let tag = "Root"
-  
-  
-  let version : String = ""
+  static var tag  : String { return "root" }
+  var parent      : ElementType?
 }
 
 
-try? detectElementTypeWithClass(Root.self)
-
-
-
-//
-//
-//struct Tag : ElementType {
-//  let content : String
-//}
-//
-//
-//let root = XML()
+var xmlString = "<root version=\"1.0\"><tags><tag/><tag>Hello World<tag><tags></xml>"
+var xml = try XML(xml: xmlString)
+try xml.detectElementTypeWithClass(Root.self)
+xml.decode { (error) -> Void in
+  print(error)
+}
