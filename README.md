@@ -30,13 +30,13 @@
 
 ```
 
-Elements 是一个没有学习曲线的 XML 模型框架。 Keys 简化了大部分 NSXMLParser 的复杂接口并提供了一系列模型（Models） 创建，验证等接口，满足你需要进行 XML 模型创建的任务。
+Elements 是一个没有学习曲线的 XML 模型框架。 Elements 简化了大部分 NSXMLParser 的复杂接口并提供了一系列模型（Models） 创建，验证等接口，满足你需要进行 XML 模型创建的任务。
 
 ## 了解 Element
 
-每一个 XML Element 等同于软件中的 Model。 ｀｀｀<element>property</element>｀｀｀ 中的 <element> 相当于一个 Model。
+每一个 XML Element 等同于软件中的 Model。 ```<element>property</element>``` 中的 ```<element>``` 相当于一个 Model。
 
-每一个 XML Element 可将 Property（数据）放在两个地方， ｀｀｀<element attribute="12345">HelloWorld</element>｀｀｀ 中有两个数据： 12345 和 HelloWorld。 由 Elements 框架负责转换到响应数据的格式。
+每一个 XML Element 可将 Property（数据）放在两个地方， ```<element attribute="12345">HelloWorld</element>``` 中有两个数据： 12345 和 HelloWorld。 由 Elements 框架负责转换到响应数据的格式。
 
 在将 XML 文档转换成 Models 的过程中， Elements 会根据 Rule（规则） 转换数据。当数据不符合规定时，会显示出错误的地方。
 
