@@ -26,4 +26,8 @@ public struct Rule {
   
   var tag   : String
   var type  : RuleType
+  
+  func validate(element:ElementType) {
+    
+  }
 }

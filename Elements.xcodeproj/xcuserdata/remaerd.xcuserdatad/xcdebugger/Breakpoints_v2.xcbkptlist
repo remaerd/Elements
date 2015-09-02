@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Elements/XML.swift"
-            timestampString = "462361359.486178"
+            filePath = "Tests/Tests.swift"
+            timestampString = "462870167.362013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "detectElementTypeWithClass(_:parentElementType:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "didReceiveChildElement(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

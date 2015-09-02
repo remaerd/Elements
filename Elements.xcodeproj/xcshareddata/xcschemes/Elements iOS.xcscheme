@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "034297DA1B8D9F9F000FE5D5"
+               BlueprintIdentifier = "03CAB5201B96A50D005A8B96"
                BuildableName = "Elements.framework"
-               BlueprintName = "Elements"
+               BlueprintName = "Elements iOS"
                ReferencedContainer = "container:Elements.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "03CAB5311B96A5A0005A8B96"
+               BuildableName = "Tests iOS.xctest"
+               BlueprintName = "Tests iOS"
+               ReferencedContainer = "container:Elements.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "03CAB5201B96A50D005A8B96"
+            BuildableName = "Elements.framework"
+            BlueprintName = "Elements iOS"
+            ReferencedContainer = "container:Elements.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -45,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "034297DA1B8D9F9F000FE5D5"
+            BlueprintIdentifier = "03CAB5201B96A50D005A8B96"
             BuildableName = "Elements.framework"
-            BlueprintName = "Elements"
+            BlueprintName = "Elements iOS"
             ReferencedContainer = "container:Elements.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "034297DA1B8D9F9F000FE5D5"
+            BlueprintIdentifier = "03CAB5201B96A50D005A8B96"
             BuildableName = "Elements.framework"
-            BlueprintName = "Elements"
+            BlueprintName = "Elements iOS"
             ReferencedContainer = "container:Elements.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

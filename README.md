@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/pypi/l/Django.svg)](https://github.com/remaerd/Elements/blob/master/LICENSE)
 
 
-# Elements - XML 模型框架
+# Elements - XML 建模框架
 *Please help me translate the README documentation. Thanks!*
 
 

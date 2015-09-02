@@ -11,30 +11,19 @@ import Foundation
 
 public protocol ElementType {
   
-  static var tag    : String { get }
-  static var rules  : [Rule]? { get }
+  static var element_tag    : String { get }
+  static var element_rules  : [Rule]? { get }
+  static var element_parent : ElementType? { get }
   
-  var parent      : ElementType? { get set }
-//  var children    : [String:ElementType]?  { get }
-//  var property    : PropertyType?  { get }
-//  var attributes  : [String:PropertyType]?  { get }
+  init(parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws
+  func didReceiveChildElement(element:ElementType)
 }
 
 
 public extension ElementType {
   
-//  Due to Swift 2.0 issue. The framework is not buildable if these code exist. So I comment them and wait it'll work with new version of Swift.
-  
-//  public static var tag : String {
-//    if let classType = self as? AnyClass { NSStringFromClass(classType.dynamicType) }
-//    return ""
-//  }
-  
-  
-  static var rules : [Rule]? {
-    return nil
-  }
-  
+  static var element_rules  : [Rule]? { return nil }
+  static var element_parent : ElementType? { return nil }
   
   private func encode() throws -> String {
     let result = ""

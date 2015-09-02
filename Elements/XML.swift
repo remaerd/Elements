@@ -19,17 +19,24 @@ public final class XML : NSObject, NSXMLParserDelegate {
   }
   
   
-  public var rootElement  : ElementType?
-  public var xmlData      : NSData?
+  public var xmlData  : NSData?
   
   
-  private var _parser           : NSXMLParser?
-  private var _currentElements  : [ElementType]?
-  private var _parserError      : ErrorType?
+  public var didDecodeElement : ((element:ElementType) -> Void)?
+  
+  private var _parser             : NSXMLParser?
+  private var _parserErrors       = [ErrorType]()
+  private var _currentAttributes  : [String:String]?
+  private var _currentElementType : ElementType.Type?
   
   
-  private lazy var _classes   : [String:(elementType:ElementType.Type, parentElementType: ElementType.Type?)] = {
-    return [String:(elementType:ElementType.Type, parentElementType: ElementType.Type?)]()
+  private lazy  var _currentElements : [ElementType] = {
+    return [ElementType]()
+  }()
+  
+  
+  private lazy var _classes : [String:ElementType.Type] = {
+    return [String:ElementType.Type]()
   }()
   
   
@@ -53,29 +60,33 @@ public final class XML : NSObject, NSXMLParserDelegate {
   }
   
   
-  public func detectElementTypeWithClass(elementType:AnyClass?, parentElementType:AnyClass? = nil) throws {
+  public func detectElementTypeWithClass(elementType:AnyClass?) throws {
     guard let element = elementType as? ElementType.Type else { throw Error.InvalidElementClass }
-    let parentElement = parentElementType as? ElementType.Type
-    self._classes[element.tag] = (element,parentElement)
+    self._classes[element.element_tag] = element
   }
   
   
-  public func decode(completionHandler: ((error:ErrorType?) -> Void)?) {
-    guard let data = self.xmlData else { completionHandler?(error: Error.InvalidXMLDocumentData); return }
-    self._parser = NSXMLParser(data:data )
+  public func decode(completionHandler: ((errors:[ErrorType]?) -> Void)?) {
+    guard let data = self.xmlData else { completionHandler?(errors: [Error.InvalidXMLDocumentData]); return }
+    self._parser = NSXMLParser(data:data)
+    self._parser?.delegate = self
     let result = self._parser!.parse()
-    if result == true { completionHandler?(error: nil) }
-    else { completionHandler?(error: _parserError) }
+    if result == true { completionHandler?(errors: nil) }
+    else { completionHandler?(errors: _parserErrors) }
+    self._parser = nil
   }
   
   
-  public func encode(completionHandler: ((error:ErrorType?) -> Void)?) {
-  
+  public func encode(completionHandler: ((errors:[ErrorType]?) -> Void)?) {
+    
   }
-  
+}
+
+
+extension XML {
   
   public func parserDidStartDocument(parser: NSXMLParser) {
-    
+    self._parserErrors.removeAll()
   }
   
   
@@ -85,26 +96,55 @@ public final class XML : NSObject, NSXMLParserDelegate {
   
   
   public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-    
+    if self._currentElementType != nil { self.createElement(self._currentElementType!) }
+    self._currentElementType = _classes[elementName]
+    self._currentAttributes = attributeDict
   }
   
   
   public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-    
+    self._currentAttributes = nil
+    if self._currentElements.count > 0 { self._currentElements.removeLast() }
+    self._currentElementType = nil
   }
   
   
   public func parser(parser: NSXMLParser, foundCharacters string: String) {
-    
+    guard let elementType = self._currentElementType else { return }
+    self.createElement(elementType, property: string)
   }
   
   
   public func parser(parser: NSXMLParser, foundCDATA CDATABlock: NSData) {
-    
+    guard let elementType = self._currentElementType else { return }
+    self.createElement(elementType, property: CDATABlock)
+  }
+  
+  
+  public func parser(parser: NSXMLParser, validationErrorOccurred validationError: NSError) {
+    self._parserErrors.append(validationError)
   }
   
   
   public func parser(parser: NSXMLParser, parseErrorOccurred parseError: NSError) {
-    self._parserError = parseError
+    self._parserErrors.append(parseError)
+  }
+}
+
+
+extension XML {
+  
+  private func createElement(classType:ElementType.Type, property: AnyObject? = nil) {
+    do {
+      let element = try classType.init(parent: self._currentElements.last, attributes: self._currentAttributes, property: property)
+      self._currentElements.append(element)
+      if self._currentElements.count > 1 {
+        let parentElement = self._currentElements[self._currentElements.count - 2]
+        parentElement.didReceiveChildElement(element)
+      }
+      self.didDecodeElement?(element: element)
+    } catch {
+      self._parserErrors.append(error)
+    }
   }
 }
