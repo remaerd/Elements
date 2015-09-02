@@ -46,10 +46,14 @@ Elements 是一个没有学习曲线的 XML 建模框架。 Elements 简化了�
 
 class Feed : ElementType {
 
+	enum Error : ErrorType {
+		case InvalidURL
+	}
+
+	let url : String
+
 	required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
-		self.feed = parent as! Feed
-		self.title = attributes["title"]
-		self.content = attributes["content"]
+		self.url = attributes["url"]
 		if self.title == nil { throw InvalidTitle }
 	}
 
