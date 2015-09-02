@@ -12,8 +12,8 @@
 ```swift
 
 let xmlString = "<feed url=\"example.com\"><articles><article>Hello World</article></articles></feed>"
-let classes : [ElementType.Type] = [Feed.self,Article.self]
-let xml = Elements.XML(xml: xmlString, models: classes)
+let models : [ElementType.Type] = [Feed.self,Article.self]
+let xml = Elements.XML(xml: xmlString, models: models)
 
 xml.decode { (rootElements, errors) -> Void in
   let feed = rootElements[0] as! Feed
@@ -40,9 +40,26 @@ Elements 是一个没有学习曲线的 XML 建模框架。 Elements 简化了�
 	github "remaerd/Elements"
 ```
 
-### 模型
+### 简单样例代码
 
 ```swift
+
+class Feed : ElementType {
+
+	required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
+    self.feed = parent as! Feed
+    self.title = attributes["title"]
+    self.content = attributes["content"]
+    if self.title == nil { throw InvalidTitle }
+  }
+
+	func child(element: ElementType) {
+    if let comment = element as? Comment {
+    	self.comments.append(comment)
+    }
+  }
+}
+
 
 class Article : ElementType {
   
@@ -50,12 +67,13 @@ class Article : ElementType {
   	case InvalidTitle
   }
 
-
   unowned let feed : Feed!
   let title : String!
   var content	: String?
-  var comments = [Comment]()
 
+  static var element : String {
+		return "item"
+	}
 
   required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
     self.feed = parent as! Feed
@@ -63,13 +81,17 @@ class Article : ElementType {
     self.content = attributes["content"]
     if self.title == nil { throw InvalidTitle }
   }
-  
-  
-  func child(element: ElementType) {
-    if let comment = element as? Comment {
-    	self.comments.append(comment)
-    }
-  }
+}
+
+
+let xmlString = "<feed url=\"example.com\"><items><item>Hello World</item></items></feed>"
+let models : [ElementType.Type] = [Feed.self,Article.self]
+let xml = Elements.XML(xml: xmlString, models: models)
+
+xml.decode { (rootElements, errors) -> Void in
+  let feed = rootElements[0] as! Feed
+  let article = feed.articles[0]
+  print(article.title) // "Hello World"
 }
 
 ```
