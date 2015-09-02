@@ -16,9 +16,9 @@ let models : [ElementType.Type] = [Feed.self,Article.self]
 let xml = Elements.XML(xml: xmlString, models: models)
 
 xml.decode { (rootElements, errors) -> Void in
-  let feed = rootElements[0] as! Feed
-  let article = feed.articles[0]
-  print(article.title) // "Hello World"
+	let feed = rootElements[0] as! Feed
+	let article = feed.articles[0]
+	print(article.title) // "Hello World"
 }
 
 ```
@@ -47,40 +47,40 @@ Elements 是一个没有学习曲线的 XML 建模框架。 Elements 简化了�
 class Feed : ElementType {
 
 	required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
-    self.feed = parent as! Feed
-    self.title = attributes["title"]
-    self.content = attributes["content"]
-    if self.title == nil { throw InvalidTitle }
-  }
+		self.feed = parent as! Feed
+		self.title = attributes["title"]
+		self.content = attributes["content"]
+		if self.title == nil { throw InvalidTitle }
+	}
 
 	func child(element: ElementType) {
-    if let comment = element as? Comment {
-    	self.comments.append(comment)
-    }
-  }
+		if let comment = element as? Comment {
+			self.comments.append(comment)
+		}
+	}
 }
 
 
 class Article : ElementType {
-  
-  enum Error : ErrorType {
-  	case InvalidTitle
-  }
+	
+	enum Error : ErrorType {
+		case InvalidTitle
+	}
 
-  unowned let feed : Feed!
-  let title : String!
-  var content	: String?
+	unowned let feed : Feed!
+	let title : String!
+	var content : String?
 
-  static var element : String {
+	static var element : String {
 		return "item"
 	}
 
-  required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
-    self.feed = parent as! Feed
-    self.title = attributes["title"]
-    self.content = attributes["content"]
-    if self.title == nil { throw InvalidTitle }
-  }
+	required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
+		self.feed = parent as! Feed
+		self.title = attributes["title"]
+		self.content = attributes["content"]
+		if self.title == nil { throw InvalidTitle }
+	}
 }
 
 
@@ -89,9 +89,9 @@ let models : [ElementType.Type] = [Feed.self,Article.self]
 let xml = Elements.XML(xml: xmlString, models: models)
 
 xml.decode { (rootElements, errors) -> Void in
-  let feed = rootElements[0] as! Feed
-  let article = feed.articles[0]
-  print(article.title) // "Hello World"
+	let feed = rootElements[0] as! Feed
+	let article = feed.articles[0]
+	print(article.title) // "Hello World"
 }
 
 ```
