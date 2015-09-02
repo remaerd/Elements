@@ -21,58 +21,62 @@ public final class XML : NSObject, NSXMLParserDelegate {
   
   public var xmlData  : NSData?
   
-  
-  public var didDecodeElement : ((element:ElementType) -> Void)?
-  
-  private var _parser             : NSXMLParser?
-  private var _parserErrors       = [ErrorType]()
-  private var _currentAttributes  : [String:String]?
-  private var _currentElementType : ElementType.Type?
+  private var _parser               : NSXMLParser?
+  private var _parserErrors         = [ErrorType]()
+  private var _currentAttributes    : [String:String]?
+  private var _currentElementType   : ElementType.Type?
+  private var _rootElementType      : ElementType.Type?
   
   
-  private lazy  var _currentElements : [ElementType] = {
+  private lazy var _rootElements : [ElementType] = {
     return [ElementType]()
   }()
   
   
-  private lazy var _classes : [String:ElementType.Type] = {
+  private lazy var _currentElements : [ElementType] = {
+    return [ElementType]()
+  }()
+  
+  
+  private lazy var _models : [String:ElementType.Type] = {
     return [String:ElementType.Type]()
   }()
   
   
-  public init(filePath:String) throws {
-    super.init()
+  public convenience init(filePath:String, models:[ElementType.Type]) throws {
     if NSFileManager.defaultManager().fileExistsAtPath(filePath) != true { throw Error.InvalidXMLDocumentFilePath }
     guard let data = NSData(contentsOfFile: filePath) else { throw Error.InvalidXMLDocumentData }
-    self.xmlData = data
+    self.init(data: data,models: models)
   }
   
   
-  public convenience init(fileURL:NSURL) throws {
+  public convenience init(fileURL:NSURL, models:[ElementType.Type]) throws {
     guard let filePath = fileURL.path else { throw Error.InvalidXMLDocumentFileURL }
-    try self.init(filePath:filePath)
+    try self.init(filePath:filePath, models: models)
   }
   
   
-  public init(xml:String) throws {
-    self.xmlData = xml.dataUsingEncoding(NSUTF8StringEncoding)
+  public convenience init(xml:String, models:[ElementType.Type]) {
+    let data = xml.dataUsingEncoding(NSUTF8StringEncoding)!
+    self.init(data: data,models: models)
+  }
+  
+  
+  public init(data: NSData, models:[ElementType.Type]) {
+    self.xmlData = data
     super.init()
+    for elementType in models { self._models[elementType.element] = elementType }
+    self._rootElementType = models.first
   }
   
   
-  public func detectElementTypeWithClass(elementType:AnyClass?) throws {
-    guard let element = elementType as? ElementType.Type else { throw Error.InvalidElementClass }
-    self._classes[element.element_tag] = element
-  }
-  
-  
-  public func decode(completionHandler: ((errors:[ErrorType]?) -> Void)?) {
-    guard let data = self.xmlData else { completionHandler?(errors: [Error.InvalidXMLDocumentData]); return }
+  public func decode(completionHandler: ((rootElements:[ElementType]?, errors:[ErrorType]?) -> Void)?) {
+    guard let data = self.xmlData else { completionHandler?(rootElements:nil, errors: [Error.InvalidXMLDocumentData]); return }
     self._parser = NSXMLParser(data:data)
     self._parser?.delegate = self
     let result = self._parser!.parse()
-    if result == true { completionHandler?(errors: nil) }
-    else { completionHandler?(errors: _parserErrors) }
+    if result == true { completionHandler?(rootElements: self._rootElements, errors: nil) }
+    else { completionHandler?(rootElements:nil, errors: _parserErrors) }
     self._parser = nil
   }
   
@@ -86,6 +90,8 @@ public final class XML : NSObject, NSXMLParserDelegate {
 extension XML {
   
   public func parserDidStartDocument(parser: NSXMLParser) {
+    self._rootElements.removeAll()
+    self._currentElements.removeAll()
     self._parserErrors.removeAll()
   }
   
@@ -97,15 +103,15 @@ extension XML {
   
   public func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
     if self._currentElementType != nil { self.createElement(self._currentElementType!) }
-    self._currentElementType = _classes[elementName]
+    self._currentElementType = _models[elementName]
     self._currentAttributes = attributeDict
   }
   
   
   public func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     self._currentAttributes = nil
-    if self._currentElements.count > 0 { self._currentElements.removeLast() }
     self._currentElementType = nil
+    if self._currentElements.count > 0 { self._currentElements.removeLast() }
   }
   
   
@@ -139,10 +145,10 @@ extension XML {
       let element = try classType.init(parent: self._currentElements.last, attributes: self._currentAttributes, property: property)
       self._currentElements.append(element)
       if self._currentElements.count > 1 {
-        let parentElement = self._currentElements[self._currentElements.count - 2]
-        parentElement.didReceiveChildElement(element)
+        let previousElement = self._currentElements[self._currentElements.count - 2]
+        previousElement.child(element)
       }
-      self.didDecodeElement?(element: element)
+      if self._rootElementType == classType { self._rootElements.append(element) }
     } catch {
       self._parserErrors.append(error)
     }

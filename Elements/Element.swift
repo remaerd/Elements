@@ -11,19 +11,33 @@ import Foundation
 
 public protocol ElementType {
   
-  static var element_tag    : String { get }
-  static var element_rules  : [Rule]? { get }
-  static var element_parent : ElementType? { get }
+  static var element : String { get }
   
   init(parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws
-  func didReceiveChildElement(element:ElementType)
+  func child(element:ElementType)
+  func parent() -> ElementType?
 }
 
 
 public extension ElementType {
   
-  static var element_rules  : [Rule]? { return nil }
-  static var element_parent : ElementType? { return nil }
+  public static var element : String {
+    guard let classType = self as? AnyClass else { return "" }
+    let className = NSStringFromClass(classType).lowercaseString
+    let nameComponents = className.componentsSeparatedByString(".")
+    return nameComponents.last!
+  }
+  
+  
+  func child(element:ElementType) {
+    
+  }
+  
+  
+  func parent() -> ElementType? {
+    return nil
+  }
+
   
   private func encode() throws -> String {
     let result = ""

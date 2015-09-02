@@ -11,22 +11,15 @@
 
 ```swift
 
-	import Elements
+	let xmlString = "<feed url="example.com"><articles><article>Hello World</article></articles></feed>"
+  let classes : [ElementType.Type] = [Feed.self,Article.self]
+  let xml = Elements.XML(xml: xmlString, models: classes)
 
-
-	class Root : ElementType {
-  
-  	static var tag  : String { return "root" }
-  	var parent      : ElementType?
-	}
-
-
-	var xmlString = "<root version=\"1.0\"><tags><tag/><tag>Hello World<tag><tags></xml>"
-	var xml = try XML(xml: xmlString)
-	try xml.detectElementTypeWithClass(Root.self)
-	xml.decode { (error) -> Void in
-  	print(error)
-	}
+  xml.decode { (rootElements, errors) -> Void in
+    let feed = rootElements[0] as! Feed
+    let article = feed.articles[0]
+    print(article.title) // "Hello World"
+  }
 
 ```
 

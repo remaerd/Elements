@@ -17,14 +17,9 @@ class Element : ElementType {
   }
   
   
-  static var element_tag = "element"
-  
   let message : String!
   let xml     : XML!
   
-  var element_parent : XML {
-    return xml
-  }
   
   required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
     self.message = property as? String
@@ -33,15 +28,13 @@ class Element : ElementType {
   }
   
   
-  func didReceiveChildElement(element: ElementType) {
-    
+  func parent() -> ElementType {
+    return xml
   }
 }
 
 
 class XML : ElementType {
-  
-  static var element_tag = "xml"
   
   var children : [Element]
   
@@ -50,7 +43,7 @@ class XML : ElementType {
   }
   
   
-  func didReceiveChildElement(element: ElementType) {
+  func child(element: ElementType) {
     if let child = element as? Element { self.children.append(child) }
   }
 }
@@ -60,36 +53,26 @@ class XML : ElementType {
 class Tests: XCTestCase {
   
   func testDefineElementType() {
-    print(XML.element_tag)
-    XCTAssertTrue(XML.element_tag == "xml")
+    print(XML.element)
+    XCTAssertTrue(XML.element == "xml")
   }
   
   
   func testDecode() {
     
-    let xmlString = "<xml><element>Hello World</element></xml>"
-    do {
-      let xml = try Elements.XML(xml: xmlString)
-      try xml.detectElementTypeWithClass(XML.self)
-      try xml.detectElementTypeWithClass(Element.self)
-      
-      var xmlElement : XML?
-      
-      xml.didDecodeElement = {
-        (element:ElementType) -> Void in
-        if let xml = element as? XML { xmlElement = xml }
-      }
-      
-      xml.decode { (errors) -> Void in
-        XCTAssertNil(errors)
-        XCTAssertNotNil(xmlElement)
-        XCTAssertTrue(xmlElement?.children.count == 1)
-        let element = xmlElement?.children[0]
-        XCTAssertTrue(element?.message == "Hello World")
-      }
-    } catch {
-      XCTFail()
+    let xmlString = "<xml><elements><element>Hello World</element><element>Hello Remaerd</element></elements></xml>"
+    let classes : [ElementType.Type] = [XML.self,Element.self]
+    let xml = Elements.XML(xml: xmlString, models: classes)
+
+    xml.decode { (rootElements, errors) -> Void in
+      XCTAssertNil(errors)
+      XCTAssertTrue(rootElements?.count == 1)
+      let xmlElement = rootElements?[0] as? XML
+      XCTAssertNotNil(xmlElement)
+      XCTAssertTrue(xmlElement?.children.count == 2)
+      let element = xmlElement?.children[0]
+      XCTAssertTrue(element?.message == "Hello World")
     }
   }
-    
+  
 }
