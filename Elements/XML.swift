@@ -142,7 +142,7 @@ extension XML {
   
   private func createElement(classType:ElementType.Type, property: AnyObject? = nil) {
     do {
-      let element = try classType.init(parent: self._currentElements.last, attributes: self._currentAttributes, property: property)
+      let element = try classType.decode(self._currentElements.last, attributes: self._currentAttributes, property: property)
       self._currentElements.append(element)
       if self._currentElements.count > 1 {
         let previousElement = self._currentElements[self._currentElements.count - 2]

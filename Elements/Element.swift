@@ -13,7 +13,7 @@ public protocol ElementType {
   
   static var element : String { get }
   
-  init(parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws
+  static func decode(parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws -> ElementType
   func child(element:ElementType)
   func parent() -> ElementType?
 }
