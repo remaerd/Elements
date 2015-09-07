@@ -9,29 +9,12 @@
 import Foundation
 
 
-public enum PropertyError : ErrorType {
-  case InvalidNSDataProperty
-}
-
-
-public protocol PropertyType {
+public extension Bool {
   
-  static func decode(string:String) throws -> PropertyType
-  func encode() throws -> String
-}
-
-
-extension NSData : PropertyType {
-  
-  final public func encode() -> String {
-    let options : NSDataBase64EncodingOptions = [.Encoding64CharacterLineLength]
-    return self.base64EncodedStringWithOptions(options)
-  }
-  
-  
-  public static func decode(string: String) throws -> PropertyType {
-    let options : NSDataBase64DecodingOptions = [.IgnoreUnknownCharacters]
-    guard let data = NSData(base64EncodedString: string, options: options) else { throw PropertyError.InvalidNSDataProperty }
-    return data
+  public init?(_ string:String) {
+    self.init()
+    if string == "true" { self = true }
+    else if string == "false" { self = false }
+    return nil
   }
 }

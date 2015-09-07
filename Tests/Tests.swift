@@ -13,18 +13,25 @@ import Elements
 class Element : ElementType {
   
   enum Error : ErrorType {
-    case InvalidMessage
+    case InvalidData
   }
   
   
-  let message : String!
-  let xml     : XML!
+  let message : String
+  unowned let xml : XML
   
   
-  required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
-    self.message = property as? String
-    self.xml = parent as? XML
-    if self.message == nil && self.xml == nil { throw Error.InvalidMessage }
+  init(xml:XML,message:String) {
+    self.xml = xml
+    self.message = message
+  }
+  
+  
+  static func decode(parent: ElementType?, attributes: [String : AnyObject]?, property: AnyObject?) throws -> ElementType {
+    guard let message = property as? String,
+              xml = parent as? XML
+      else { throw Error.InvalidData }
+    return Element(xml: xml, message: message)
   }
   
   
@@ -36,10 +43,11 @@ class Element : ElementType {
 
 class XML : ElementType {
   
-  var children : [Element]
+  lazy var children = [Element]()
   
-  required init(parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws {
-    self.children = [Element]()
+  
+  static func decode(parent: ElementType?, attributes: [String : AnyObject]?, property: AnyObject?) throws -> ElementType {
+    return XML()
   }
   
   
