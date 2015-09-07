@@ -9,12 +9,13 @@
 import Foundation
 
 
-public extension Bool {
+public extension String {
   
-  public init?(_ string:String) {
-    self.init()
-    if string == "true" { self = true }
-    else if string == "false" { self = false }
-    return nil
+  var boolValue : Bool? {
+    switch self {
+    case "true": return true
+    case "false": return false
+    default: return nil
+    }
   }
 }
