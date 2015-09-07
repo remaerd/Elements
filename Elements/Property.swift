@@ -11,11 +11,20 @@ import Foundation
 
 public extension String {
   
-  var boolValue : Bool? {
+  public func boolValue() -> Bool? {
     switch self {
     case "true": return true
     case "false": return false
     default: return nil
+    }
+  }
+  
+  
+  public func boolValue(defaultValue:Bool) -> Bool {
+    switch self {
+    case "true": return true
+    case "false": return false
+    default: return defaultValue
     }
   }
 }
