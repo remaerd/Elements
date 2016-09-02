@@ -20,7 +20,7 @@ public extension String {
   }
   
   
-  public func boolValue(defaultValue:Bool) -> Bool {
+  public func boolValue(_ defaultValue:Bool) -> Bool {
     switch self {
     case "true": return true
     case "false": return false

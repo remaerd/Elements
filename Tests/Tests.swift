@@ -9,10 +9,17 @@
 import XCTest
 import Elements
 
-
 class Element : ElementType {
   
-  enum Error : ErrorType {
+  public static func decode(_ parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws -> ElementType {
+    guard let message = property as? String,
+      let xml = parent as? XML
+      else { throw ElementsError.InvalidData }
+    return Element(xml: xml, message: message)
+  }
+
+  
+  enum ElementsError : Error {
     case InvalidData
   }
   
@@ -27,14 +34,6 @@ class Element : ElementType {
   }
   
   
-  static func decode(parent: ElementType?, attributes: [String : AnyObject]?, property: AnyObject?) throws -> ElementType {
-    guard let message = property as? String,
-              xml = parent as? XML
-      else { throw Error.InvalidData }
-    return Element(xml: xml, message: message)
-  }
-  
-  
   func parent() -> ElementType {
     return xml
   }
@@ -43,15 +42,13 @@ class Element : ElementType {
 
 class XML : ElementType {
   
-  lazy var children = [Element]()
-  
-  
-  static func decode(parent: ElementType?, attributes: [String : AnyObject]?, property: AnyObject?) throws -> ElementType {
+  public static func decode(_ parent: ElementType?, attributes: [String : String]?, property: AnyObject?) throws -> ElementType {
     return XML()
   }
   
+  lazy var children = [Element]()
   
-  func child(element: ElementType) {
+  func child(_ element: ElementType) {
     if let child = element as? Element { self.children.append(child) }
   }
 }

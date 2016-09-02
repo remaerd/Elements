@@ -8,16 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		034297DF1B8D9F9F000FE5D5 /* Elements.h in Headers */ = {isa = PBXBuildFile; fileRef = 034297DE1B8D9F9F000FE5D5 /* Elements.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		034297E71B8DA031000FE5D5 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297E61B8DA031000FE5D5 /* Element.swift */; settings = {ASSET_TAGS = (); }; };
-		034297EB1B8E0356000FE5D5 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297EA1B8E0356000FE5D5 /* Property.swift */; settings = {ASSET_TAGS = (); }; };
-		034297EE1B8E0D31000FE5D5 /* XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297ED1B8E0D31000FE5D5 /* XML.swift */; settings = {ASSET_TAGS = (); }; };
+		034297E71B8DA031000FE5D5 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297E61B8DA031000FE5D5 /* Element.swift */; };
+		034297EB1B8E0356000FE5D5 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297EA1B8E0356000FE5D5 /* Property.swift */; };
+		034297EE1B8E0D31000FE5D5 /* XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297ED1B8E0D31000FE5D5 /* XML.swift */; };
 		03CAB52A1B96A527005A8B96 /* XML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297ED1B8E0D31000FE5D5 /* XML.swift */; };
 		03CAB52B1B96A527005A8B96 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297E61B8DA031000FE5D5 /* Element.swift */; };
 		03CAB52C1B96A527005A8B96 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034297EA1B8E0356000FE5D5 /* Property.swift */; };
 		03CAB5351B96A5A1005A8B96 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CAB5341B96A5A1005A8B96 /* Tests.swift */; };
-		03CAB5371B96A5A1005A8B96 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03CAB5211B96A50D005A8B96 /* Elements.framework */; settings = {ASSET_TAGS = (); }; };
-		03CAB5461B96A5C7005A8B96 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034297DB1B8D9F9F000FE5D5 /* Elements.framework */; settings = {ASSET_TAGS = (); }; };
-		03CAB54C1B96A618005A8B96 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CAB5341B96A5A1005A8B96 /* Tests.swift */; settings = {ASSET_TAGS = (); }; };
+		03CAB5371B96A5A1005A8B96 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03CAB5211B96A50D005A8B96 /* Elements.framework */; };
+		03CAB5461B96A5C7005A8B96 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034297DB1B8D9F9F000FE5D5 /* Elements.framework */; };
+		03CAB54C1B96A618005A8B96 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CAB5341B96A5A1005A8B96 /* Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03025F391D79764C006E3F09 /* Elements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Elements.playground; sourceTree = "<group>"; };
 		034297DB1B8D9F9F000FE5D5 /* Elements.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		034297DE1B8D9F9F000FE5D5 /* Elements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Elements.h; sourceTree = "<group>"; };
 		034297E01B8D9F9F000FE5D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		034297E61B8DA031000FE5D5 /* Element.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		034297EA1B8E0356000FE5D5 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
-		034297EC1B8E0B61000FE5D5 /* Elements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Elements.playground; sourceTree = SOURCE_ROOT; };
 		034297ED1B8E0D31000FE5D5 /* XML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XML.swift; sourceTree = "<group>"; };
 		03CAB5211B96A50D005A8B96 /* Elements.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03CAB5321B96A5A0005A8B96 /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +89,7 @@
 		034297D11B8D9F9F000FE5D5 = {
 			isa = PBXGroup;
 			children = (
-				034297EC1B8E0B61000FE5D5 /* Elements.playground */,
+				03025F391D79764C006E3F09 /* Elements.playground */,
 				034297DD1B8D9F9F000FE5D5 /* Elements */,
 				03CAB5331B96A5A0005A8B96 /* Tests */,
 				034297DC1B8D9F9F000FE5D5 /* Products */,
@@ -228,20 +228,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Sean Cheng";
 				TargetAttributes = {
 					034297DA1B8D9F9F000FE5D5 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					03CAB5201B96A50D005A8B96 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					03CAB5311B96A5A0005A8B96 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					03CAB5401B96A5C7005A8B96 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -362,8 +366,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -407,8 +413,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -426,6 +434,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -444,10 +453,12 @@
 				INFOPLIST_FILE = Elements/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.Elements-OSX";
 				PRODUCT_NAME = Elements;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -464,27 +475,31 @@
 				INFOPLIST_FILE = Elements/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.Elements-OSX";
 				PRODUCT_NAME = Elements;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		03CAB5271B96A50D005A8B96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Elements/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.Elements-iOS";
 				PRODUCT_NAME = Elements;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -492,18 +507,20 @@
 		03CAB5281B96A50D005A8B96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Elements/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.Elements-iOS";
 				PRODUCT_NAME = Elements;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -518,6 +535,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.ElementsTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -530,6 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.ElementsTests-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -542,6 +561,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.ElementsTests-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -553,6 +573,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.zhengxingzhi.ElementsTests-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

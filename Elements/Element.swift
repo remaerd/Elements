@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 public protocol ElementType {
   
   static var element : String { get }
   
-  static func decode(parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws -> ElementType
-  func child(element:ElementType)
+  static func decode(_ parent: ElementType?, attributes:[String:String]?, property:AnyObject?) throws -> ElementType
+  func child(_ element:ElementType)
   func parent() -> ElementType?
 }
 
@@ -23,13 +22,13 @@ public extension ElementType {
   
   public static var element : String {
     guard let classType = self as? AnyClass else { return "" }
-    let className = NSStringFromClass(classType).lowercaseString
-    let nameComponents = className.componentsSeparatedByString(".")
+    let className = NSStringFromClass(classType).lowercased()
+    let nameComponents = className.components(separatedBy: ".")
     return nameComponents.last!
   }
   
   
-  func child(element:ElementType) {
+  func child(_ element:ElementType) {
     
   }
   
@@ -39,7 +38,7 @@ public extension ElementType {
   }
 
   
-  private func encode() throws -> String {
+  fileprivate func encode() throws -> String {
     let result = ""
     return result
   }
